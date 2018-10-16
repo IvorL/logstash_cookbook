@@ -15,7 +15,7 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[logstash::default]
+      - recipe[logstash_cookbook::default]
     verifier:
       inspec_tests:
         - test/integration/default
