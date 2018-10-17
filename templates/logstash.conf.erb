@@ -1,0 +1,25 @@
+# Sample Logstash configuration for creating a simple
+# Beats -> Logstash -> Elasticsearch pipeline.
+
+input {
+	beats {
+		port => 5044
+	}
+
+	beats {
+		port => 5045
+	}
+
+	file {
+		path => "/var/log/logstash/logstash-plain.log"
+	}
+}
+
+output {
+	elasticsearch {
+		hosts => "http://10.1.6.3:9200"
+		manage_template => false
+		index => "%{[@metadata][beat]}-nodeapp-%{[@metadata][version]}-%{+YYYY.MM.dd}"
+		document_type => "%{[@metadata][type]}"
+	}
+}
